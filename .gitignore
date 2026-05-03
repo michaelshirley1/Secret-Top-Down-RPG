@@ -1,6 +1,44 @@
-build
-out
-.cache
-.idea
-.vs
-.vscode
+# Build output
+bin/
+out/
+build/
+ 
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CPackConfig.cmake
+CPackSourceConfig.cmake
+_deps/
+*.cmake
+!CMakeLists.txt
+ 
+# Visual Studio
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sln.docview
+.vs/
+x64/
+x86/
+Debug/
+Release/
+*.dir/
+ 
+# Compiled objects
+*.o
+*.obj
+*.exe
+*.dll
+*.lib
+*.pdb
+*.ilk
+*.exp
+ 
+# OS
+.DS_Store
+Thumbs.db
