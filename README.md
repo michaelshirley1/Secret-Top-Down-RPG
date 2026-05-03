@@ -29,9 +29,14 @@ On Windows, `openal32.dll` is copied automatically for SFML audio support.
 ## Project Structure
 
 ```
-src/
-  core/         # Game loop, state machine, utilities
+headers/
+  core/         # Game loop, state machine
   entities/     # Base object and character classes
   scenes/       # Game, menu, and title scenes
+  states/       # Game state definitions
+src/
+  core/         # Game loop, state machine implementations
+  entities/     # Entity implementations
+  scenes/       # Scene implementations
 assets/         # Sprites and other assets
 ```
