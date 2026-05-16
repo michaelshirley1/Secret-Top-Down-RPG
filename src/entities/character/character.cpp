@@ -1,9 +1,20 @@
 #include "entities/character/character.h"
 
+namespace
+{
+    constexpr int FRAME_WIDTH = 14;
+    constexpr int FRAME_HEIGHT = 20;
+}
+
 character::character(float xStart, float yStart, float xStartDir, float yStartDir)
     : baseObject(xStart, yStart)
 {
-    
+    // Load the texture
+    texture.loadFromFile(assetPath("character.png"));
+    sprite.setTexture(texture);
+    sprite.setScale(3.f, 3.f);
+
+    setSpriteIndex(SpriteFrame::IDLE);
 }
 
 void character::update(float dt)
@@ -13,10 +24,26 @@ void character::update(float dt)
 
     if (!isRolling)
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) inputX -= 1.f;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) inputX += 1.f;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) inputY -= 1.f;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) inputY += 1.f;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) 
+        {
+            setSpriteIndex(SpriteFrame::LEFT);
+            inputX -= 1.f;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
+        {
+            setSpriteIndex(SpriteFrame::RIGHT);
+            inputX += 1.f;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
+        {
+            setSpriteIndex(SpriteFrame::UP);
+            inputY -= 1.f;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) 
+        {
+            setSpriteIndex(SpriteFrame::DOWN);
+            inputY += 1.f;
+        }
 
         if (inputX != 0.f || inputY != 0.f)
         {
@@ -86,6 +113,32 @@ void character::handleDamage(int amount) {
         justHitClock.restart();
     }
 }
+
+void character::setSpriteIndex(const SpriteFrame& frameId)
+{
+    int frameIndex = -1;
+
+    switch(frameId)
+    {
+        case SpriteFrame::IDLE:     frameIndex = 0; break;
+        case SpriteFrame::UP:       frameIndex = 1; break;
+        case SpriteFrame::LEFT:     frameIndex = 2; break;
+        case SpriteFrame::RIGHT:    frameIndex = 3; break;
+        case SpriteFrame::DOWN:     frameIndex = 0; break;
+        case SpriteFrame::DISABLED: frameIndex = 0; break;
+        default: break;
+    }
+
+    if (frameIndex >= 0)
+    {
+        sprite.setTextureRect({
+            frameIndex * FRAME_WIDTH,
+            0,
+            FRAME_WIDTH, FRAME_HEIGHT
+        });
+    }
+}
+
 
 void character::handleRoll()
 {

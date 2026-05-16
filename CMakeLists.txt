@@ -13,7 +13,13 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp)
+
+
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
+add_executable(main ${SOURCES})
+target_compile_definitions(main PRIVATE
+    $<$<CONFIG:Debug>:ASSETS_DIR="${CMAKE_SOURCE_DIR}/assets">)
+target_include_directories(main PRIVATE headers)
 target_link_libraries(main PRIVATE sfml-graphics)
 target_compile_features(main PRIVATE cxx_std_17)
 
