@@ -5,14 +5,18 @@
 class character : public baseObject
 {
     public:
+        enum class SpriteFrame
+        {
+            IDLE, UP, LEFT, RIGHT, DOWN, DISABLED 
+        };
 
         sf::Sprite sprite;
 
         int health = 100;
-        boolean isRolling = false;
-        boolean justHit = false;
+        bool isRolling = false;
+        bool justHit = false;
 
-        character(float xStart, float yStart);
+        explicit character(float xStart, float yStart, float xStartDir, float yStartDir);
 
         void update(float dt) override;
         void render(sf::RenderWindow* renderWindow) override;
@@ -33,4 +37,8 @@ class character : public baseObject
 
         void handleRoll();
         void handleDamage(int amount);
+
+        void setSpriteIndex(const SpriteFrame& frameId);
+
+        
 };

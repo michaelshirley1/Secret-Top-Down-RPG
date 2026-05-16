@@ -8,3 +8,9 @@
 #include <SFML/OpenGL.hpp>
 #include <SFML/Config.hpp>
 #include <iostream>
+
+inline std::string assetPath(const std::string& rel)
+{
+  return "assets/" + rel;
+}
+

@@ -5,7 +5,7 @@
 
 Game::Game(sf::RenderWindow& window)
 {
-    player = std::make_unique<character>(0, 0);
+    player = std::make_unique<character>(0, 0, 0, 0);
     objects.push_back(std::move(player));
 }
 
